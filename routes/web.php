@@ -2,6 +2,7 @@
 
 use App\Models\Address;
 use App\Models\Post;
+use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
@@ -29,7 +30,7 @@ Route::get('/users', function () {
 });
 
 Route::get('/posts', function () {
-    $posts = Post::all();
+    $posts = Post::with(['tags', 'user'])->get();
     return view('posts.index', ['posts' => $posts]);
 }
 );
@@ -67,4 +68,20 @@ Route::get('/addresses', function () {
     // select * from `users` where `users`.`user_id` in (1, 2, 3, 4)
     $addresses = Address::with('owner')->get();
     return view('addresses.address_owner',[ 'addresses' => $addresses]);
+});
+
+Route::get('/post', function () {
+    $react = Tag::find(3);
+    $javascript = Tag::find(1);
+    $post = Post::with('tags')->first();
+
+    // $post->tags()->detach();
+    // $post->tags()->attach([$react->id, $javascript->id]);
+    $post->tags()->sync([3,4]);
+    return $post;
+});
+
+Route::get('/tags', function () {
+    $tags = Tag::with('posts')->get();
+    return $tags;
 });

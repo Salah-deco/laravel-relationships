@@ -20,4 +20,9 @@ class Post extends Model
                 'name' => 'Guest'
             ]); // with default if user not found
     }
+
+    public function tags() {
+        return $this->belongsToMany(Tag::class, 'post_tag', 'post_id', 'tag_id'); // second parameter is pivot table name
+        // return $this->belongsToMany(Tag::class);
+    }
 }

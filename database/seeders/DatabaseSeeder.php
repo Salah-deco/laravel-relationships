@@ -64,5 +64,18 @@ class DatabaseSeeder extends Seeder
         \App\Models\Post::create([
             'title' => 'Post by Guest',
         ]);
+
+        \App\Models\Tag::create([
+            'name' => 'Laravel'
+        ]);
+        \App\Models\Tag::create([
+            'name' => 'PHP'
+        ]);
+        \App\Models\Tag::create([
+            'name' => 'REACT'
+        ]);
+        \App\Models\Tag::create([
+            'name' => 'Javascript'
+        ]);
     }
 }

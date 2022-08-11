@@ -1,24 +1,10 @@
-## One To Many relationship
+## Many To Many Relationships
 
-A one-to-many relationship is used to define relationships where a single model is the parent to one or more child models. For example, a User may have an infinite number of Post. Like all other Eloquent relationships, one-to-many relationships are defined by defining a method on your Eloquent model:
+Many-to-many relations are slightly more complicated than hasOne and hasMany relationships. An example of a many-to-many relationship is a user that has many roles and those roles are also shared by other users in the application. For example, a user may be assigned the role of "Author" and "Editor"; however, those roles may also be assigned to other users as well. So, a user has many roles and a role has many users.
 
-- hasMany method for User model to Post, params foreign_key, and local_key. 
-Example: <code>
-    public function posts() {
-        return $this->hasMany(Post::class, 'user_id', 'user_id'); // second param for foreign_key, and third param for local_key
-    }
-</code>
-- belongsTo method for Inverse OneToMany 
-Example: 
-<code>
-     public function user() {
-        return $this->belongsTo(User::class, 'user_id', 'user_id')
-            ->withDefault([
-                'name' => 'Guest'
-            ]); // with default if user not found
-    }
-</code>
+<hr>
 
-# to optimize Queries
-to optimize queries add <b>has</b> method and <b>with</b> method to get the specified post for example:
-<code>$users = User::has('posts', '>=', 2)->with('posts')->get(); // users have more than two posts</code>
+our example:
+- Post - may have many tags
+- Tag - have many posts
+- Pivot table
