@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('post_id')->constrained('posts');
             // $table->unsignedBigInteger('tag_id');
             $table->foreignId('tag_id')->constrained('tags');
+            $table->string('status');
             $table->timestamps();
         });
     }

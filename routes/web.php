@@ -71,13 +71,10 @@ Route::get('/addresses', function () {
 });
 
 Route::get('/post', function () {
-    $react = Tag::find(3);
-    $javascript = Tag::find(1);
-    $post = Post::with('tags')->first();
+    $post = Post::first();
 
-    // $post->tags()->detach();
-    // $post->tags()->attach([$react->id, $javascript->id]);
-    $post->tags()->sync([3,4]);
+    // attach tag with additional pivot column data.
+    $post->tags()->attach(6, ['status' => 'active']);
     return $post;
 });
 
