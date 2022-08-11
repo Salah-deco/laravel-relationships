@@ -7,7 +7,7 @@ Example: <br>
 <code>
     public function posts() {<br>
         return $this->hasMany(Post::class, 'user_id', 'user_id'); // second param for foreign_key, and third param for local_key<br>
-    }
+    }<br><br>
 </code>
 - belongsTo method for Inverse OneToMany 
 Example: <br>
@@ -17,7 +17,7 @@ Example: <br>
             ->withDefault([
                 'name' => 'Guest'
             ]); // with default if user not found<br>
-    }<br>
+    }<br><br>
 </code>
 
 # to optimize Queries
