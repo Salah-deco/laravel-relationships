@@ -49,4 +49,14 @@ class User extends Authenticatable
         // return $this->hasOne(Address::class, 'uid'); //? SELECT * FROM addresses WHERE addresses.uid = users.id
         return $this->hasOne(Address::class, 'uid', 'user_id'); //? SELECT * FROM addresses WHERE addresses.uid = users.user_id
     }
+
+    //? One to many relationship User hasMany Address
+    public function addresses() {
+        return $this->hasMany(Address::class, 'uid', 'user_id');
+    }
+
+    //? One to many relationship User hasMany Posts   
+    public function posts() {
+        return $this->hasMany(Post::class, 'user_id', 'user_id');
+    }
 }

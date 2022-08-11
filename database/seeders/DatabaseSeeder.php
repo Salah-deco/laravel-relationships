@@ -39,5 +39,30 @@ class DatabaseSeeder extends Seeder
             'uid' => 2,
             'country' => 'Morocco'
         ]);
+
+        \App\Models\Post::create([
+            'title' => 'First Post',
+            'user_id' => 1
+        ]);
+        \App\Models\Post::create([
+            'title' => 'Second Post',
+            'user_id' => 1
+        ]);
+        \App\Models\Post::create([
+            'title' => 'Third Post',
+            'user_id' => 1
+        ]);
+        \App\Models\Post::create([
+            'title' => 'Post 2',
+            'user_id' => 2
+        ]); 
+        \App\Models\Post::create([
+            'title' => 'Post 3',
+            'user_id' => 3
+        ]);
+
+        \App\Models\Post::create([
+            'title' => 'Post by Guest',
+        ]);
     }
 }

@@ -1,10 +1,24 @@
-## One To One relationship
+## One To Many relationship
 
-A one-to-one relationship is a very basic type of database relationship. For example, a User model might be associated with one Address model. To define this relationship, we will place a address method on the User model. The Address method should call the hasOne method and return its result. The hasOne method is available to your model via the model's Illuminate\Database\Eloquent\Model
+A one-to-many relationship is used to define relationships where a single model is the parent to one or more child models. For example, a User may have an infinite number of Post. Like all other Eloquent relationships, one-to-many relationships are defined by defining a method on your Eloquent model:
 
-- hasOne method for user model, params foreign_key, and local_key. Example: <code>$this->hasOne(Address::class, 'uid', 'user_id');</code>
-- belongsTo method for Address model to be associated with User model. same params
+- hasMany method for User model to Post, params foreign_key, and local_key. 
+Example: <code>
+    public function posts() {
+        return $this->hasMany(Post::class, 'user_id', 'user_id'); // second param for foreign_key, and third param for local_key
+    }
+</code>
+- belongsTo method for Inverse OneToMany 
+Example: 
+<code>
+     public function user() {
+        return $this->belongsTo(User::class, 'user_id', 'user_id')
+            ->withDefault([
+                'name' => 'Guest'
+            ]); // with default if user not found
+    }
+</code>
 
 # to optimize Queries
-'WITH' method to get all users in one query
-- Example: <code>$addresses = Address::with('owner')->get(); </code>
+to optimize queries add <b>has</b> method and <b>with</b> method to get the specified post for example:
+<code>$users = User::has('posts', '>=', 2)->with('posts')->get(); // users have more than two posts</code>

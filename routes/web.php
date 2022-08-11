@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Address;
+use App\Models\Post;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
@@ -20,26 +21,18 @@ Route::get('/', function () {
 });
 
 
-Route::get('/user', function () {
-
-     $user1 = User::factory()->create();
-    // $user1->address()->create([
-    //     'country' => 'Moscou',     
-    // ]);
-
-    // Address::create([
-    //     'country' => 'Moscou',
-    //     'uid' => $user1->id,
-    // ]);
-
-    $users = User::all();
-    $addresses = array();
-    foreach ($users as $user) {
-        $addresses[$user->name] = $user->address;
-    }
-
-    return $addresses;
+Route::get('/users', function () {
+    // $users = User::all();
+    // $users = User::has('posts')->with('posts')->get(); // has posts for users has at least one post
+    $users = User::has('posts', '>=', 2)->with('posts')->get(); // has posts for users has more than two posts
+    return view('users.posts', ['users' => $users]);
 });
+
+Route::get('/posts', function () {
+    $posts = Post::all();
+    return view('posts.index', ['posts' => $posts]);
+}
+);
 
 Route::get('/addresses', function () {
 
