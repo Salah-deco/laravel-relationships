@@ -77,5 +77,28 @@ class DatabaseSeeder extends Seeder
         \App\Models\Tag::create([
             'name' => 'Javascript'
         ]);
+
+        // projects
+        \App\Models\Project::create([
+            'title' => 'Backend GDS'
+        ]);
+        \App\Models\Project::create([
+            'title' => 'Frontend GDS'
+        ]);
+
+        // tasks
+        \App\Models\Task::create([
+            'title' => 'Task 1',
+            'user_id' => 2
+        ]);
+        \App\Models\Task::create([
+            'title' => 'Task 2',
+            'user_id' => 1
+        ]);
+        \App\Models\Task::create([
+            'title' => 'Task 3',
+            'user_id' => 1
+        ]);
+        
     }
 }

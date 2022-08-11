@@ -27,10 +27,6 @@ class PostTag extends Pivot
             if ($tag == null || $post == null) {
                 error_log('tag or post not found');
             }
-
-            
-            error_log('post: ' . $post->title);
-            error_log('tag: ' . $tag->name);
         });
     
         static::created(function ($model) {

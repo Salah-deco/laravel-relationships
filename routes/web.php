@@ -2,8 +2,10 @@
 
 use App\Models\Address;
 use App\Models\Post;
+use App\Models\Project;
 use App\Models\Tag;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -81,4 +83,24 @@ Route::get('/post', function () {
 Route::get('/tags', function () {
     $tags = Tag::with('posts')->get();
     return $tags;
+});
+
+Route::get('/projects', function () {
+    $projects = Project::with('users')->get();
+
+    // $user = User::create([
+    //     'name' => 'John',
+    //     'email' => 'john.doe@gmail.com',
+    //     'password' => Hash::make('12345678'),
+    //     'project_id' => $projects[0]->id,
+    // ]);
+
+    // $user2 = User::find(2);
+    // $user2->project()->associate($projects[1]);
+    // $user2->save();
+    
+
+    // return $projects[1]->users[0]->tasks;
+    //! after creating method tasks() in Project model we can use it like this:
+    return $projects[0]->task;
 });

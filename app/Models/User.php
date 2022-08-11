@@ -23,6 +23,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'project_id'
     ];
 
     /**
@@ -58,5 +59,14 @@ class User extends Authenticatable
     //? One to many relationship User hasMany Posts   
     public function posts() {
         return $this->hasMany(Post::class, 'user_id', 'user_id');
+    }
+
+    public function project() 
+    {
+        return $this->belongsTo(Project::class);
+    }
+    public function tasks() 
+    {
+        return $this->hasMany(Task::class, 'user_id', 'user_id');
     }
 }
