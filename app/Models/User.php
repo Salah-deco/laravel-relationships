@@ -17,6 +17,8 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+
+    protected $primaryKey = 'user_id';
     protected $fillable = [
         'name',
         'email',
@@ -41,4 +43,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function address() {
+        // return $this->hasOne(Address::class); //? SELECT * FRPOM addresses WHERE addresses.user_id = id (DEFAULT)
+        // return $this->hasOne(Address::class, 'uid'); //? SELECT * FROM addresses WHERE addresses.uid = users.id
+        return $this->hasOne(Address::class, 'uid', 'user_id'); //? SELECT * FROM addresses WHERE addresses.uid = users.user_id
+    }
 }
