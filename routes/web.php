@@ -4,6 +4,7 @@ use App\Models\Address;
 use App\Models\Post;
 use App\Models\Project;
 use App\Models\Tag;
+use App\Models\Task;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
@@ -86,7 +87,7 @@ Route::get('/tags', function () {
 });
 
 Route::get('/projects', function () {
-    $projects = Project::with('users')->get();
+    // $projects = Project::with('users')->get();
 
     // $user = User::create([
     //     'name' => 'John',
@@ -102,5 +103,52 @@ Route::get('/projects', function () {
 
     // return $projects[1]->users[0]->tasks;
     //! after creating method tasks() in Project model we can use it like this:
-    return $projects[0]->task;
+    // return $projects[0]->task;
+
+    //? Many to many relationship through pivot table
+    $projects = Project::with('users')->get();
+    // $user1 = User::find(1);
+    // $user2 = User::find(2);
+    // $user3 = User::find(3);
+
+    // $projects[0]->users()->attach($user1);
+    // $projects[0]->users()->attach($user2);
+
+    // $projects[1]->users()->attach($user2);
+    // $projects[1]->users()->attach($user3);
+
+    // $projects[2]->users()->attach($user3);
+
+    return $projects;
+    // return view('projects.index', ['projects' => $projects]);
+});
+
+Route::get('/user_project', function () {
+    $user = User::find(1);
+
+    return $user->projects;
+});
+
+Route::get('/project_user', function () {
+    $project = Project::find(1);
+    return $project->users;
+});
+
+Route::get('/project_task', function () {
+    $project = Project::find(1);
+
+    // Task::create([
+    //     'title' => 'Task 1',
+    //     'user_id' => 1,
+    // ]);
+    // Task::create([
+    //     'title' => 'Task 2',
+    //     'user_id' => 1,
+    // ]);
+    // Task::create([
+    //     'title' => 'Task 3',
+    //     'user_id' => 2,
+    // ]);
+
+    return $project->task;
 });

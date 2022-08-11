@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id('user_id');
-            $table->unsignedBigInteger('project_id')->nullable(); // User can be assigned to project
+            // $table->unsignedBigInteger('project_id')->nullable(); // User can be assigned to project
             // $table->foreign('project_id')->on('projects');
             // $table->foreignId('project_id')->constrained('projects');
             $table->string('name');

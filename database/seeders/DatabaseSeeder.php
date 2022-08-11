@@ -85,6 +85,9 @@ class DatabaseSeeder extends Seeder
         \App\Models\Project::create([
             'title' => 'Frontend GDS'
         ]);
+        \App\Models\Project::create([
+            'title' => 'Rest API GDS'
+        ]);
 
         // tasks
         \App\Models\Task::create([
