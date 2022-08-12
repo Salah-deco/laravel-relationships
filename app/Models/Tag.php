@@ -13,8 +13,19 @@ class Tag extends Model
         'name'
     ];
 
-    public function posts() 
+    // //? many to many relationship Tag hasMany Posts
+    // public function posts() 
+    // {
+    //     return $this->belongsToMany(Post::class, 'post_tag', 'tag_id', 'post_id');
+    // }
+
+    //! many to many relationship Tag hasMany Posts with Polymorphic relationship
+    public function posts()
     {
-        return $this->belongsToMany(Post::class, 'post_tag', 'tag_id', 'post_id');
+        return $this->morphedByMany(Post::class, 'taggable', 'taggables'); // second parameter is pivot table name
+    }
+    public function videos()
+    {
+        return $this->morphedByMany(Video::class, 'taggable', 'taggables');
     }
 }

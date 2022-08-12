@@ -198,3 +198,41 @@ Route::get('/poly', function () {
     return $post->comment;
 
 });
+
+Route::get('/many_poly', function () {
+    // $post = Post::create([
+    //     'user_id' => 1,
+    //     'title' => 'Example post title 1',
+    // ]);
+
+    // $post->tags()->create([
+    //     'name' => 'Spring Boot',
+    // ]);
+    // $post->tags()->create([
+    //     'name' => 'Spring Security',
+    // ]);
+
+    // $post = Post::with('tags')->find(7);
+    // $jwt = Tag::create([
+    //     'name' => 'jwt',
+    // ]);
+    // $post->tags()->attach($jwt);
+    //return $post;
+    
+    $video = Video::create([
+        'title' => 'Laravel tutorial',
+        'user_id' => 1,
+    ]);
+    // $tags = Tag::where('name', 'like', '%Spring%')->get();
+    // $video->tags()->attach($tags);
+    $video->tags()->attach([1, 2]);
+
+    $video = Video::with('tags')->find(1);
+    return $video;
+
+});
+
+Route::get('/tags_poly', function () {
+    
+    return Tag::with(['posts', 'videos'])->find(1);
+});
