@@ -17,10 +17,13 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+
+    protected $primaryKey = 'user_id';
     protected $fillable = [
         'name',
         'email',
         'password',
+        // 'project_id'
     ];
 
     /**
@@ -41,4 +44,29 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function address() {
+        // return $this->hasOne(Address::class); //? SELECT * FRPOM addresses WHERE addresses.user_id = id (DEFAULT)
+        // return $this->hasOne(Address::class, 'uid'); //? SELECT * FROM addresses WHERE addresses.uid = users.id
+        return $this->hasOne(Address::class, 'uid', 'user_id'); //? SELECT * FROM addresses WHERE addresses.uid = users.user_id
+    }
+
+    //? One to many relationship User hasMany Address
+    public function addresses() {
+        return $this->hasMany(Address::class, 'uid', 'user_id');
+    }
+
+    //? One to many relationship User hasMany Posts   
+    public function posts() {
+        return $this->hasMany(Post::class, 'user_id', 'user_id');
+    }
+
+    public function projects() 
+    {
+        return $this->belongsToMany(Project::class,'project_user', 'user_id', 'project_id');
+    }
+    public function tasks() 
+    {
+        return $this->hasMany(Task::class, 'user_id', 'user_id');
+    }
 }
