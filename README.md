@@ -1,28 +1,25 @@
-## Has Many Through
-The "has-many-through" relationship provides a convenient way to access distant relations via an intermediate relation.
+## One To One (Polymorphic)
+A one-to-one polymorphic relation is similar to a typical one-to-one relation; however, the child model can belong to more than one type of model using a single association.
 
-<hr>
+- Post:
+    - CommentPost
+- Video:
+    -CommentVideo
 
-- Project:
-    - id - integer
-    - title - string
+==> with polymorphic
+- Post
+- Video
+- Comment:
+    - commentable_id
+    - commentable_type (Post, Video, ...)
 
-- User:
-    - user_id
-    - ...
+to create two columns commentable_id and type use single line : 
+<code>$table->morphs('commentable')</code>
 
-- project_user (Model Team)
-    - project_id
-    - user_id
+Relation between Post or Video and Comments use : 
+<p><code>$this->morphMany(Comment::class, 'commentable')</code></p>
 
-- Task
-    - id
-    - title
-    - user_id
+To get just one comment : <code>$this->morphOne(Comment::class, 'commentable')->latestOfMany()</code>
 
 
-Has Many Through allow Project method access to task using pivote table project_user
-Example: 
-<code>
-    $this->hasManyThrough(Task::class, Team::class, 'project_id', 'user_id', 'id', 'user_id');
-</code>
+<b>Inverse relation : </b><code>$this->morphTo('commentable')</code>

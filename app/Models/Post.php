@@ -28,4 +28,15 @@ class Post extends Model
             ->withPivot('status'); // with pivot column status
         // return $this->belongsToMany(Tag::class);
     }
+
+    public function comments() 
+    {
+        return $this->morphMany(Comment::class, 'commentable');
+    }
+
+    public function comment() 
+    {
+        return $this->morphOne(Comment::class, 'commentable')
+                    ->latestOfMany();
+    }
 }

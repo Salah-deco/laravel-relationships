@@ -1,11 +1,13 @@
 <?php
 
 use App\Models\Address;
+use App\Models\Comment;
 use App\Models\Post;
 use App\Models\Project;
 use App\Models\Tag;
 use App\Models\Task;
 use App\Models\User;
+use App\Models\Video;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 
@@ -151,4 +153,48 @@ Route::get('/project_task', function () {
     // ]);
 
     return $project->task;
+});
+
+// Polymorphic one to many 
+Route::get('/poly', function () {
+    // $user = User::create([
+    //     'name' => 'John',
+    //     'email' => 'john@gmail.com',
+    //     'password' => Hash::make('12345678'),
+    // ]);
+
+    // $post = Post::create([
+    //     'user_id' => $user->user_id,
+    //     'title' => 'Example post title',
+    // ]);
+
+    // $post->comments()->create([
+    //     'user_id' => $user->user_id,
+    //     'body' => 'Example comment body',
+    // ]);
+    // $post->comments()->create([
+    //     'user_id' => 2,
+    //     'body' => 'Example comment body 2',
+    // ]);
+
+    // $video = Video::create([
+    //     'title' => 'Example video title',
+    //     'user_id' => $user->user_id,
+    // ]);
+    // $video->comments()->create([
+    //     'user_id' => $user->user_id,
+    //     'body' => 'Example comment body',
+    // ]);
+
+    // $post = Post::find(7);
+    // return $post->comments;
+
+    // $comments = Comment::with('commentable')->get();
+    // $comment = Comment::find(1);
+
+    // return $comment->subject;
+
+    $post = Post::find(7);
+    return $post->comment;
+
 });
